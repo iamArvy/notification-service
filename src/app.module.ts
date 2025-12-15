@@ -20,8 +20,7 @@ import { WinstonModule } from 'nest-winston';
     WinstonModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (config: ConfigService) => {
-        const winstonConfig =
-          config.getOrThrow<WinstonConfig>('logger.winston');
+        const winstonConfig = config.getOrThrow<WinstonConfig>('winston');
         return winstonConfig;
       },
     }),
