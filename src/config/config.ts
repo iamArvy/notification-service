@@ -1,6 +1,6 @@
 import { appConfig, appValidation } from './app.config';
 import { dbConfig, dbValidation } from './database.config';
-import { firebaseConfig } from './firebase.config';
+import { firebaseConfig, firebaseValidation } from './firebase.config';
 import { mailConfig, mailValidation } from './mail.config';
 import { winstonConfig, winstonValidation } from './winston.config';
 
@@ -16,4 +16,4 @@ export const validationSchema = appValidation
   .concat(dbValidation)
   .concat(winstonValidation)
   .concat(mailValidation)
-  .concat(firebaseConfig);
+  .concat(firebaseValidation);

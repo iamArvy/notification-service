@@ -6,8 +6,8 @@ export const mailConfig = registerAs('mail', () => ({
   port: Number(process.env.MAIL_PORT) || 465,
   secure: Number(process.env.MAIL_SECURE),
   auth: {
-    username: process.env.MAIL_USERNAME,
-    password: process.env.MAIL_PASSWORD,
+    user: process.env.MAIL_USERNAME,
+    pass: process.env.MAIL_PASSWORD,
   },
   from: {
     address: process.env.MAIL_FROM_ADDRESS,

@@ -15,14 +15,14 @@ export class NodeMailerProvider {
   private transporter: nodemailer.Transporter;
 
   constructor(private readonly config: ConfigService) {
-    const { host, port, secure, auth } = config.getOrThrow<MailConfig>(
+    const { host, port, auth } = config.getOrThrow<MailConfig>(
       NODEMAILER_CONFIG_NAME,
     );
     // Initialize the transporter
     this.transporter = nodemailer.createTransport({
       host,
       port,
-      secure,
+      secure: port === 465,
       auth,
       pool: NODEMAILER_POOL,
       maxConnections: NODEMAILER_MAX_CONNECTIONS,
