@@ -23,6 +23,10 @@ export abstract class MongoRepository<TDocument> {
     return this.model.create(data);
   }
 
+  findUnique(filter: QueryFilter<TDocument>) {
+    return this.model.findOne(filter);
+  }
+
   findById(id: string) {
     this.validateId(id);
     return this.model.findById(id).exec();
@@ -56,6 +60,10 @@ export abstract class MongoRepository<TDocument> {
   update(id: string, data: UpdateQuery<TDocument>) {
     this.validateId(id);
     return this.model.findByIdAndUpdate(id, data, { new: true }).exec();
+  }
+
+  updateMany(filter: QueryFilter<TDocument>, update: UpdateQuery<TDocument>) {
+    return this.model.updateMany(filter, update);
   }
 
   softDelete(id: string) {

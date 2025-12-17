@@ -6,6 +6,8 @@ import { LoggerService, ValidationPipe } from '@nestjs/common';
 import { IAppConfig } from './config';
 import { ConfigService } from '@nestjs/config';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { IRabbitMQConfig } from './config/rmq.config';
 
 function createSwaggerConfig(
   name: string,
@@ -16,16 +18,14 @@ function createSwaggerConfig(
     .setTitle(name)
     .setDescription(description ?? '')
     .setVersion(version)
-    .addApiKey(
-      {
-        type: 'apiKey',
-        name: API_KEY_HEADER,
-        in: 'header',
-      },
-      API_KEY_SECURITY_NAME,
-    )
+    .addSecurity(API_KEY_SECURITY_NAME, {
+      type: 'apiKey',
+      name: API_KEY_HEADER,
+      in: 'header',
+    })
     .build();
 }
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
@@ -55,6 +55,13 @@ async function bootstrap() {
     SwaggerModule.createDocument(app, swaggerConfig),
     { swaggerOptions: { persistAuthorization: true } },
   );
+
+  const rmqConfig = config.getOrThrow<IRabbitMQConfig>('rabbitmq');
+
+  app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.RMQ,
+    options: rmqConfig,
+  });
 
   app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
 

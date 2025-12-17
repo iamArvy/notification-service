@@ -3,43 +3,45 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
+  Headers,
 } from '@nestjs/common';
 import { NotificationService } from './notification.service';
-import { CreateNotificationDto } from './dto/create-notification.dto';
-import { UpdateNotificationDto } from './dto/update-notification.dto';
+import { ApiSecurity } from '@nestjs/swagger';
+import { API_KEY_SECURITY_NAME, UserIdHeader } from 'src/common/constants';
 
-@Controller('notification')
+@ApiSecurity(API_KEY_SECURITY_NAME)
+@Controller('notifications')
 export class NotificationController {
   constructor(private readonly notificationService: NotificationService) {}
 
   @Post()
-  create(@Body() createNotificationDto: CreateNotificationDto) {
-    return this.notificationService.create(createNotificationDto);
-  }
-
+  // create(@Body() createNotificationDto: CreateNotificationDto) {
+  //   return this.notificationService.create(createNotificationDto);
+  // }
   @Get()
-  findAll() {
-    return this.notificationService.findAll();
+  findAll(@Headers(UserIdHeader) userId: string) {
+    return this.notificationService.findAll(userId);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.notificationService.findOne(id);
+  @Delete('clear')
+  clearUserNotifications(@Headers(UserIdHeader) userId: string) {
+    return this.notificationService.clearUserNotifications(userId);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateNotificationDto: UpdateNotificationDto,
-  ) {
-    return this.notificationService.update(id, updateNotificationDto);
+  @Post('read')
+  markAllAsRead(@Headers(UserIdHeader) userId: string) {
+    return this.notificationService.markAllAsRead(userId);
+  }
+
+  @Post(':id/read')
+  seen(@Headers(UserIdHeader) userId: string, @Param('id') id: string) {
+    return this.notificationService.read(id, userId);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.notificationService.remove(id);
+  remove(@Headers(UserIdHeader) userId: string, @Param('id') id: string) {
+    return this.notificationService.remove(id, userId);
   }
 }
