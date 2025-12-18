@@ -12,6 +12,7 @@ import { NotificationModule } from './modules/notification/notification.module';
 import { DbModule } from './db/db.module';
 import { EventModule } from './modules/notification-event/event.module';
 import { UserModule } from './modules/user/user.module';
+import { SettingsModule } from './modules/settings/setting.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { UserModule } from './modules/user/user.module';
     NotificationModule,
     EventModule,
     UserModule,
+    SettingsModule,
   ],
   controllers: [AppController],
   providers: [

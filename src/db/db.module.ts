@@ -7,15 +7,15 @@ import {
   NotificationEvent,
   NotificationEventSchema,
   NotificationSchema,
-  NotificationSetting,
-  NotificationSettingSchema,
+  Setting,
+  SettingSchema,
   User,
   UserSchema,
 } from './schemas';
 import {
   NotificationEventRepository,
   NotificationRepository,
-  NotificationSettingRepository,
+  SettingRepository,
   UserRepository,
 } from './repositories';
 
@@ -33,20 +33,20 @@ import {
       { name: Notification.name, schema: NotificationSchema },
       { name: User.name, schema: UserSchema },
       { name: NotificationEvent.name, schema: NotificationEventSchema },
-      { name: NotificationSetting.name, schema: NotificationSettingSchema },
+      { name: Setting.name, schema: SettingSchema },
     ]),
   ],
   providers: [
     NotificationRepository,
     UserRepository,
     NotificationEventRepository,
-    NotificationSettingRepository,
+    SettingRepository,
   ],
   exports: [
     NotificationRepository,
     UserRepository,
     NotificationEventRepository,
-    NotificationSettingRepository,
+    SettingRepository,
   ],
 })
 export class DbModule {}

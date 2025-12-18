@@ -3,7 +3,7 @@ import { HydratedDocument } from 'mongoose';
 import paginate from 'mongoose-paginate-v2';
 import mongoose from 'mongoose';
 import { Schema as MongooseSchema } from 'mongoose';
-import { NotificationEvent } from './notification-event.schema';
+import { NotificationEvent } from './event.schema';
 
 @Schema({
   timestamps: true,

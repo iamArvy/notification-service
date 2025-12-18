@@ -1,4 +1,4 @@
 export * from './notification.schema';
-export * from './notification-event.schema';
-export * from './notification-setting.schema';
+export * from './event.schema';
+export * from './setting.schema';
 export * from './user.schema';

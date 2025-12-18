@@ -2,6 +2,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { NotificationController } from './notification.controller';
 import { NotificationService } from './notification.service';
 
+// const mockUserRepo = {
+//   create: jest.fn(),
+// };
+
 describe('NotificationController', () => {
   let controller: NotificationController;
 
