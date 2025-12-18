@@ -7,7 +7,7 @@ import {
   NODEMAILER_CONFIG_NAME,
   NODEMAILER_MAX_CONNECTIONS,
   NODEMAILER_POOL,
-} from './nodemailer.contants';
+} from './nodemailer.constants';
 
 @Injectable()
 export class NodeMailerProvider {

@@ -3,9 +3,11 @@ import { ConfigService } from '@nestjs/config';
 import { TEMPLATE_PATH } from 'src/common/constants/mail';
 import { IEmailPayload } from 'src/common/interfaces';
 import { MailConfig } from 'src/config/mail.config';
-import { NODEMAILER_CONFIG_NAME } from 'src/integrations/nodemailer/nodemailer.contants';
-import { NodeMailerProvider } from 'src/integrations/nodemailer/nodemailer.provider';
-import { NunjucksProvider } from 'src/integrations/nunjucks/nunjucks.provider';
+import {
+  NODEMAILER_CONFIG_NAME,
+  NodeMailerProvider,
+} from 'src/integrations/nodemailer';
+import { NunjucksProvider } from 'src/integrations/nunjucks';
 
 @Injectable()
 export class EmailService {
@@ -29,22 +31,21 @@ export class EmailService {
   async sendMail(payload: IEmailPayload): Promise<void> {
     const { from, to, subject, templateNameID, templateData, text } = payload;
 
-    const html = await this.nunjucks.compile(
-      TEMPLATE_PATH(templateNameID),
-      templateData,
-    );
+    const template_path = TEMPLATE_PATH(templateNameID);
+
+    const html = await this.nunjucks.compile(template_path, templateData);
 
     const fromAddress = from?.email ?? this.fromAddress;
-    const fromName = from?.name ?? this.fromName ?? 'Open School Portal';
+    const fromName = from?.name ?? this.fromName;
 
     const mailOptions = {
       from: `"${fromName}" <${fromAddress}>`,
       to: to
         .map((t) => (t.name ? `"${t.name}" <${t.email}>` : t.email))
         .join(', '),
-      subject: subject,
-      html: html,
-      text: text, // Optional plain-text version
+      subject,
+      html,
+      text, // Optional plain-text version
     };
 
     // Send the email
