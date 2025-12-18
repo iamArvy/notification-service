@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { SettingService } from './setting.service';
 import {
-  NotificationEventRepository,
+  EventRepository,
   SettingRepository,
   UserRepository,
 } from 'src/db/repositories';
@@ -27,7 +27,7 @@ describe('SettingService', () => {
         SettingService,
         { provide: SettingRepository, useValue: mockSettingRepo },
         { provide: UserRepository, useValue: mockUserRepo },
-        { provide: NotificationEventRepository, useValue: mockEventRepo },
+        { provide: EventRepository, useValue: mockEventRepo },
       ],
     }).compile();
 

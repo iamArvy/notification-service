@@ -1,2 +1,2 @@
-export * from './create-notification-event.dto';
-export * from './update-notification-event.dto';
+export * from './create-event.dto';
+export * from './update-event.dto';

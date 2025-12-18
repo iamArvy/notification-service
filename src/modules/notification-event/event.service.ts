@@ -1,11 +1,11 @@
 import { ConflictException, Injectable } from '@nestjs/common';
-import { NotificationEventRepository } from 'src/db/repositories/notification-event.repository';
-import { CreateNotificationEventDto, UpdateNotificationEventDto } from './dto';
+import { EventRepository } from 'src/db/repositories';
+import { CreateEventDto, UpdateEventDto } from './dto';
 
 @Injectable()
-export class NotificationEventService {
-  constructor(private readonly repository: NotificationEventRepository) {}
-  async create(data: CreateNotificationEventDto) {
+export class EventService {
+  constructor(private readonly repository: EventRepository) {}
+  async create(data: CreateEventDto) {
     const { name } = data;
     const existing = await this.repository.findUnique({ name });
     if (existing)
@@ -25,7 +25,7 @@ export class NotificationEventService {
     return this.repository.findByIdOrThrow(id);
   }
 
-  async update(id: string, data: UpdateNotificationEventDto) {
+  async update(id: string, data: UpdateEventDto) {
     const event = await this.repository.findByIdOrThrow(id);
     await event.updateOne(data);
     return true;

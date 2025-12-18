@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateSettingDto } from './dto/create-notification-setting.dto';
 import { UpdateSettingDto } from './dto/update-notification-setting.dto';
 import {
-  NotificationEventRepository,
+  EventRepository,
   SettingRepository,
   UserRepository,
 } from 'src/db/repositories';
@@ -12,7 +12,7 @@ export class SettingService {
   constructor(
     private readonly repository: SettingRepository,
     private readonly userRepository: UserRepository,
-    private readonly eventRepository: NotificationEventRepository,
+    private readonly eventRepository: EventRepository,
   ) {}
   async create(dto: CreateSettingDto) {
     const { user_id, event_id } = dto;

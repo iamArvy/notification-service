@@ -2,13 +2,17 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { EventController } from './event.controller';
 import { EventService } from './event.service';
 
+const mockEventService = {
+  create: jest.fn(),
+};
+
 describe('EventController', () => {
   let controller: EventController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [EventController],
-      providers: [EventService],
+      providers: [{ provide: EventService, useValue: mockEventService }],
     }).compile();
 
     controller = module.get<EventController>(EventController);

@@ -24,12 +24,10 @@ export class NotificationEvent {
   is_active: boolean;
 }
 
-export const NotificationEventSchema =
-  SchemaFactory.createForClass(NotificationEvent);
+export const EventSchema = SchemaFactory.createForClass(NotificationEvent);
 
-NotificationEventSchema.plugin(paginate);
+EventSchema.plugin(paginate);
 
-export type NotificationEventDocument = HydratedDocument<NotificationEvent>;
+export type EventDocument = HydratedDocument<NotificationEvent>;
 
-export type NotificationEventModel =
-  mongoose.PaginateModel<NotificationEventDocument>;
+export type EventModel = mongoose.PaginateModel<EventDocument>;
