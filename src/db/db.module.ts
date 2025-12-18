@@ -5,7 +5,7 @@ import { IDBConfig } from 'src/config';
 import {
   Notification,
   NotificationEvent,
-  NotificationEventSchema,
+  EventSchema,
   NotificationSchema,
   Setting,
   SettingSchema,
@@ -13,7 +13,7 @@ import {
   UserSchema,
 } from './schemas';
 import {
-  NotificationEventRepository,
+  EventRepository,
   NotificationRepository,
   SettingRepository,
   UserRepository,
@@ -32,20 +32,20 @@ import {
     MongooseModule.forFeature([
       { name: Notification.name, schema: NotificationSchema },
       { name: User.name, schema: UserSchema },
-      { name: NotificationEvent.name, schema: NotificationEventSchema },
+      { name: NotificationEvent.name, schema: EventSchema },
       { name: Setting.name, schema: SettingSchema },
     ]),
   ],
   providers: [
     NotificationRepository,
     UserRepository,
-    NotificationEventRepository,
+    EventRepository,
     SettingRepository,
   ],
   exports: [
     NotificationRepository,
     UserRepository,
-    NotificationEventRepository,
+    EventRepository,
     SettingRepository,
   ],
 })
